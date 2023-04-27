@@ -1,2 +1,2 @@
 # Opre_FHH2
-Operációs rendszer 2. fakultatív házi feladat
+Operációs rendszerek tárgy 2. fakultatív házi feladata
