@@ -59,6 +59,7 @@ public class Main {
                 if(numbers.get(i) == fifo.get(j).getNumber()) {
                     out[i] = '-';
                     fifo.get(j).setFreezeTime(0);
+                    fifo.get(j).setFrozen(false);
                     fifo.get(j).setSc(true);
                     next = true;
                 }
@@ -79,16 +80,28 @@ public class Main {
                     int c = 0;
                     while(c < 3) {
                         Page current = fifo.removeFirst();
-                        if(!current.isSc() && !current.isFrozen()) {
+                        if(current.isSc()) {
+                            current.setSc(false);
+                            fifo.add(current);
+                        } else if(current.isFrozen()) {
+                            if(fifo.get(0).isSc()) {
+                                Page tmp = fifo.removeFirst();
+                                tmp.setSc(false);
+                                fifo.add(tmp);
+                            } else if (fifo.get(0).isFrozen()) {
+                                if(fifo.get(1).isSc()) {
+                                    fifo.get(1).setSc(false);
+                                }
+                                c = 2;
+                            }
+                        } else {
                             current.setNumber(numbers.get(i));
+                            current.setFreezeTime(4);
                             current.setFrozen(true);
                             current.setSc(false);
-                            current.setFreezeTime(4);
                             fifo.add(current);
                             out[i] = current.getCh();
                             break;
-                        } else {
-                            fifo.add(current);
                         }
                         c++;
                     }
