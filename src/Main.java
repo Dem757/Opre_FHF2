@@ -80,8 +80,17 @@ public class Main {
                 }else {
                     if(fifo.getFirst().isFrozen()) {
                         if(fifo.get(1).isFrozen()){
-                            if(fifo.getLast().isFrozen())
+                            if(fifo.getLast().isFrozen()) {
                                 out[i] = '*';
+                            } else {
+                                Page current = fifo.removeLast();
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            }
                         } else if (fifo.get(1).isSc()) {
                             if(fifo.getLast().isFrozen()) {
                                 Page current = fifo.remove(1);
@@ -155,6 +164,26 @@ public class Main {
                                 Page current = fifo.removeFirst();
                                 swap.setSc(false);
                                 fifo.add(swap);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else if (fifo.getLast().isSc()){
+                                fifo.get(1).setSc(false);
+                                fifo.getLast().setSc(false);
+                                Page current = fifo.removeFirst();
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else {
+                                fifo.getFirst().setSc(false);
+                                fifo.get(1).setSc(false);
+                                Page current = fifo.removeLast();
                                 current.setSc(false);
                                 current.setNumber(numbers.get(i));
                                 current.setFrozen(true);
