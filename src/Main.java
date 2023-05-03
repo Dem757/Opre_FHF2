@@ -45,6 +45,7 @@ public class Main {
         char[] out = new char[numbers.size()];
 
         Page A = new Page('A');
+        A.setFreezeTime(3);
         Page B = new Page('B');
         Page C = new Page('C');
 
@@ -59,6 +60,7 @@ public class Main {
                 if(numbers.get(i) == fifo.get(j).getNumber()) {
                     out[i] = '-';
                     fifo.get(j).setFreezeTime(0);
+                    fifo.get(j).setFrozen(false);
                     fifo.get(j).setSc(true);
                     next = true;
                 }
@@ -70,30 +72,116 @@ public class Main {
                         fifo.add(B);
                         out[i] = 'B';
                     }
-                    else if(fifo.size() == 2) {
+                    else if (fifo.size() == 2) {
                         C.setNumber(numbers.get(i));
                         fifo.add(C);
                         out[i] = 'C';
                     }
                 }else {
-                    int c = 0;
-                    while(c < 3) {
-                        Page current = fifo.removeFirst();
-                        if(!current.isSc() && !current.isFrozen()) {
+                    if(fifo.getFirst().isFrozen()) {
+                        if(fifo.get(1).isFrozen()){
+                            if(fifo.getLast().isFrozen())
+                                out[i] = '*';
+                        } else if (fifo.get(1).isSc()) {
+                            if(fifo.getLast().isFrozen()) {
+                                Page current = fifo.remove(1);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else if (fifo.getLast().isSc()) {
+                                fifo.getLast().setSc(false);
+                                Page current = fifo.remove(1);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else {
+                                Page current = fifo.remove(1);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            }
+                        } else {
+                            Page current = fifo.remove(1);
+                            current.setSc(false);
                             current.setNumber(numbers.get(i));
                             current.setFrozen(true);
-                            current.setSc(false);
                             current.setFreezeTime(4);
-                            fifo.add(current);
                             out[i] = current.getCh();
-                            break;
-                        } else {
                             fifo.add(current);
                         }
-                        c++;
-                    }
-                    if(c == 3) {
-                        out[i] = '*';
+                    } else if (fifo.getFirst().isSc()) {
+                        if (fifo.get(1).isFrozen()) {
+                            if (fifo.getLast().isFrozen()) {
+                                Page current = fifo.removeFirst();
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else if (fifo.getLast().isSc()) {
+                                fifo.getLast().setSc(false);
+                                Page current = fifo.removeFirst();
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            } else {
+                                Page current = fifo.removeLast();
+                                Page swap = fifo.removeFirst();
+                                swap.setSc(false);
+                                fifo.add(swap);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            }
+                        } else if (fifo.get(1).isSc()) {
+                            if (fifo.getLast().isFrozen()) {
+                                Page swap = fifo.remove(1);
+                                Page current = fifo.removeFirst();
+                                swap.setSc(false);
+                                fifo.add(swap);
+                                current.setSc(false);
+                                current.setNumber(numbers.get(i));
+                                current.setFrozen(true);
+                                current.setFreezeTime(4);
+                                out[i] = current.getCh();
+                                fifo.add(current);
+                            }
+                        } else {
+                            Page swap = fifo.removeFirst();
+                            swap.setSc(false);
+                            Page current = fifo.removeFirst();
+                            fifo.add(swap);
+                            current.setSc(false);
+                            current.setNumber(numbers.get(i));
+                            current.setFrozen(true);
+                            current.setFreezeTime(4);
+                            out[i] = current.getCh();
+                            fifo.add(current);
+                        }
+                    } else {
+                        Page current = fifo.removeFirst();
+                        current.setSc(false);
+                        current.setNumber(numbers.get(i));
+                        current.setFrozen(true);
+                        current.setFreezeTime(4);
+                        out[i] = current.getCh();
+                        fifo.add(current);
                     }
                 }
             }
