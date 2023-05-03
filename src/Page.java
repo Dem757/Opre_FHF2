@@ -8,7 +8,7 @@ public class Page {
     public Page(char c) {
         number = 0;
         ch = c;
-        freezeTime = 3;
+        freezeTime = 4;
         sc = false;
         frozen = true;
     }
