@@ -12,6 +12,7 @@ A lapokat számok (1-99), a kereteket betűk (A,B és C) jelölik.
 Egyetlen sorban a lapokra történő hivatkozások egymástól vesszővel elválasztva. Például:
 
 1,2,3,-1,5,-1
+
 A negatív számok írási műveleteket jeleznek a megadott lapon; ekkor a keretek "dirty" jelzést kapnak (ez nem minden algoritmus esetén releváns információ, de a bemeneten előfordulhat).
 
 A bemenet végét EOF jelzi (előtte soremelés, üres sor lehet). Ekkor kell a kimenetre kiírni az eredményt.
@@ -27,7 +28,9 @@ Ha egy memóriafoglalás nem teljesíthető (nincs szabad keret és egyetlen ker
 Újabb esély (SC) lapcsere maximum 3 lépésig tartó tárba fagyasztással
 
 A program írja ki az algoritmus szerinti memóriafoglalásokat és a laphibák számát!
+
 Pl. a fenti bemenetre adott válasz:
 
 ABC-AB
+
 5
