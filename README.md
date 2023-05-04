@@ -22,3 +22,12 @@ A kimeneten az első sorban a bemeneti memóriahivatkozások kiszolgálásához 
 Amennyiben egy memóriahivatkozáshoz nem kellett új keretet foglalni (már a memóriában volt a lap), a kimeneten az adott pozícióban "-" jel jelenik meg.
 
 Ha egy memóriafoglalás nem teljesíthető (nincs szabad keret és egyetlen keret sem szabadítható fel), akkor a kimeneten "*" karakter jelenik meg (a műveletet nem ismétli meg az algoritmus). Ez utóbbi eset értelemszerűen nem minden algoritmusnál fordulhat elő.
+
+# Megvalósítandó algoritmus
+Újabb esély (SC) lapcsere maximum 3 lépésig tartó tárba fagyasztással
+
+A program írja ki az algoritmus szerinti memóriafoglalásokat és a laphibák számát!
+Pl. a fenti bemenetre adott válasz:
+
+ABC-AB
+5
