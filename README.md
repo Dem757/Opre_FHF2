@@ -1,4 +1,4 @@
-# Opre_FHH2
+# Opre_FHF2
 Operációs rendszerek tárgy 2. fakultatív házi feladata
 
 # Működés
